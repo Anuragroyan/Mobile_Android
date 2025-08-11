@@ -1,0 +1,22 @@
+package royanmobiletesting1;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumBy;
+
+public class ValidateTest extends BaseTest {
+	
+	@Test
+	public void ValidateTests()  throws MalformedURLException, URISyntaxException {
+		driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id=\"com.androidsample.generalstore:id/btnLetsShop\"]")).click();
+		String toastMessage = driver.findElement(By.xpath("//android.widget.Toast[1]")).getText();
+		Assert.assertEquals(toastMessage, "Please enter your name");
+
+	}
+
+}

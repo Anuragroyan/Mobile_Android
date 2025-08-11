@@ -1,0 +1,43 @@
+package royanmobiletesting1;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumBy;
+
+public class KeyPressed extends BaseTest {
+   
+	@Test
+	public void KeyPresses() throws MalformedURLException, URISyntaxException {
+		String Name = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Your Name\"]")).getText();
+		Assert.assertEquals(Name, "Your Name");
+		driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.androidsample.generalstore:id/nameField\"]")).sendKeys("Anurag Roy");
+		String Gender = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Gender\"]")).getText();
+		Assert.assertEquals(Gender, "Gender");
+		driver.findElement(By.id("com.androidsample.generalstore:id/radioMale")).click();
+		String CheckLoc = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text=\"Select the country where you want to shop\"]")).getText();
+		Assert.assertEquals(CheckLoc, "Select the country where you want to shop");
+		driver.findElement(By.id("com.androidsample.generalstore:id/spinnerCountry")).click();
+		driver.findElement(AppiumBy.androidUIAutomator(
+		    "new UiScrollable(new UiSelector().scrollable(true))" +
+		    ".scrollIntoView(new UiSelector().text(\"Antarctica\"))"));
+		driver.findElement(By.xpath("//android.widget.TextView[@text='Antarctica']")).click();
+		String BtnTitle = driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id=\"com.androidsample.generalstore:id/btnLetsShop\"]")).getText();
+		Assert.assertEquals(BtnTitle, "Let's  Shop");
+		driver.findElement(By.id("com.androidsample.generalstore:id/btnLetsShop")).click();
+        String TabTitle = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.androidsample.generalstore:id/toolbar_title\"]")).getText();
+        Assert.assertEquals(TabTitle, "Products");
+        driver.findElement(AppiumBy.xpath("//android.support.v7.widget.RecyclerView[@resource-id=\"com.androidsample.generalstore:id/rvProductList\"]/android.widget.RelativeLayout[1]/android.widget.LinearLayout")).click();
+        // Scroll to the product by name
+        driver.findElement(AppiumBy.androidUIAutomator(" new UiScrollable(new UiSelector()).scrollIntoView(text(\"Converse All Star\"));"));
+        // Click 'ADD TO CART' button for that product
+        driver.findElement(By.xpath(
+            "//android.widget.TextView[@text='Converse All Star']/parent::android.widget.LinearLayout" +
+            "//android.widget.TextView[@text='ADD TO CART']")).click();
+  
+	}
+}
